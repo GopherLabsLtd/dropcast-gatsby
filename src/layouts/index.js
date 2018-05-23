@@ -2,8 +2,6 @@ import React from 'react'
 import Link from 'gatsby-link'
 import Helmet from 'react-helmet'
 
-import { particlesJSConfigs } from '../utils/particle'
-
 // Styles
 import '../styles/main.scss'
 
@@ -20,7 +18,10 @@ WebFont.load({
 })
 
 const isBrowser = typeof window !== 'undefined';
-
+let particlesJSConfigs
+if (isBrowser) {
+  particlesJSConfigs = require('../utils/particle').particlesJSConfigs
+}
 class Template extends React.Component {
   componentDidMount() {
     if (isBrowser) {
