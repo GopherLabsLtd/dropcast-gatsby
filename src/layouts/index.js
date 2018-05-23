@@ -10,21 +10,18 @@ import LOGO from '../img/logo.svg'
 import LOGO_WHITE from '../img/logo-white.svg'
 
 // Google fonts
-import WebFont from 'webfontloader'
-WebFont.load({
-  google: {
-    families: ['Rufina:400,700', 'Source+Sans+Pro:200,300,400,600,700']
-  }
-})
-
-const isBrowser = typeof window !== 'undefined';
-let particlesJSConfigs
-if (isBrowser) {
-  particlesJSConfigs = require('../utils/particle').particlesJSConfigs
-}
+const isBrowser = typeof window !== 'undefined'
 class Template extends React.Component {
   componentDidMount() {
     if (isBrowser) {
+      const WebFont = require('webfontloader')      
+      WebFont.load({
+        google: {
+          families: ['Rufina:400,700', 'Source+Sans+Pro:200,300,400,600,700']
+        }
+      })
+
+      const particlesJSConfigs = require('../utils/particle').particlesJSConfigs
       window.particlesJS('site__bg', particlesJSConfigs)
     }
   }
