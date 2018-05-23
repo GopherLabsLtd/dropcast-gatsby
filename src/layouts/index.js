@@ -2,8 +2,12 @@ import React from 'react'
 import Link from 'gatsby-link'
 import Helmet from 'react-helmet'
 
+import { particlesJSConfigs } from '../utils/particle'
+
+// Styles
 import '../styles/main.scss'
 
+// Images
 import LOGO from '../img/logo.svg'
 import LOGO_WHITE from '../img/logo-white.svg'
 
@@ -16,12 +20,15 @@ WebFont.load({
 })
 
 class Template extends React.Component {
+  componentDidMount() {
+    window.particlesJS('site__bg', particlesJSConfigs)
+  }
+
   render() {
     return (
       <div>
         <Helmet>
           <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet" />
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
         </Helmet>
 
         <div id="site__bg"></div>
@@ -89,7 +96,8 @@ class Template extends React.Component {
         </div>
 
         <footer>
-          <p className="footer__content">Dropcast is a template made by <a href="https://amie-chen.com">Amie Chen</a> exclusively for Codrops</p>
+          <p className="footer__content">Made by <a href="https://amie-chen.com" target="_blank">Amie Chen</a> & <a href="https://gopher.it" target="_blank">Gopher Labs</a></p>
+          
           <div className="logo footer__logo">
             <a href="https://tympanus.net/codrops/"><img src={LOGO_WHITE} alt="logo"/></a>
           </div>
