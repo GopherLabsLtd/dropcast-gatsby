@@ -19,12 +19,17 @@ WebFont.load({
   }
 })
 
+const isBrowser = typeof window !== 'undefined';
+
 class Template extends React.Component {
   componentDidMount() {
-    window.particlesJS('site__bg', particlesJSConfigs)
+    if (isBrowser) {
+      window.particlesJS('site__bg', particlesJSConfigs)
+    }
   }
 
   render() {
+    const { children } = this.props
     return (
       <div>
         <Helmet>
@@ -47,52 +52,8 @@ class Template extends React.Component {
               <li><a href="#" className="nav_social__item"><i className="fas fa-rss-square"></i></a></li>
             </ul>
           </nav>
-          <section className="site">
-            <h1 className="site__title site__title--separator"><a href="index.html">Dropcast</a></h1>
-            <p className="site__description">A podcast discussing anything web related with the world’s experts</p>
-          </section>
-          <section className="episodes">
-            <article className="episode">
-              <h2 className="episode__number">01</h2>
-              <div className="episode__media">
-                <a href="detail.html" className="episode__image"></a>
-              </div>
-              <div className="episode__detail">
-                <a href="detail.html" className="episode__title"><h4>Linda Watkins</h4></a>
-                <p className="episode__description">Linda talks about how machine learning models can be used as effective substitutes for classic data structures.</p>
-              </div>
-            </article>
-            <article className="episode">
-              <h2 className="episode__number">02</h2>
-              <div className="episode__media">
-                <a href="detail.html" className="episode__image"></a>
-              </div>
-              <div className="episode__detail">
-                <a href="detail.html" className="episode__title"><h4>Dylan Perry</h4></a>
-                <p className="episode__description">Dylan talks to us about how he started programming, challenges he has faced and what keeps him hooked till this day.</p>
-              </div>
-            </article>
-            <article className="episode">
-              <h2 className="episode__number">03</h2>
-              <div className="episode__media">
-                <a href="detail.html" className="episode__image"></a>
-              </div>
-              <div className="episode__detail">
-                <a href="detail.html" className="episode__title"><h4>Olivia Valdez</h4></a>
-                <p className="episode__description">Olivia talks about how machine learning models can be used as effective substitutes for classic data structures.</p>
-              </div>
-            </article>
-            <article className="episode">
-              <h2 className="episode__number">04</h2>
-              <div className="episode__media">
-                <a href="detail.html" className="episode__image"></a>
-              </div>
-              <div className="episode__detail">
-                <a href="detail.html" className="episode__title"><h4>Samuel Chavezy</h4></a>
-                <p className="episode__description">Sam talks to us about how he started programming and what keeps him hooked till this day.</p>
-              </div>
-            </article>
-          </section>
+          
+          {children()}
         </div>
 
         <footer>

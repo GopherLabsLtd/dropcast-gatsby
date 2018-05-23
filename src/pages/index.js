@@ -7,7 +7,7 @@ import Bio from '../components/Bio'
 
 class BlogIndex extends React.Component {
   render() {
-    const siteTitle = get(this, 'props.data.site.siteMetadata.title')
+    const siteMetadata = get(this, 'props.data.site.siteMetadata')
     const posts = get(this, 'props.data.allMarkdownRemark.edges')
 
     return (
@@ -30,8 +30,8 @@ class BlogIndex extends React.Component {
           )
         })} */}
         <section className="site">
-          <h1 className="site__title site__title--separator"><a href="index.html">Dropcast</a></h1>
-          <p className="site__description">A podcast discussing anything web related with the world’s experts</p>
+          <h1 className="site__title site__title--separator">{siteMetadata.title}</h1>
+          <p className="site__description">{siteMetadata.description}</p>
         </section>
         
         <section className="episodes">
@@ -88,6 +88,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        description
       }
     }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
