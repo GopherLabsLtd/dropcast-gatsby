@@ -9,26 +9,32 @@ class BlogIndex extends React.Component {
   render() {
     const siteMetadata = get(this, 'props.data.site.siteMetadata')
     const posts = get(this, 'props.data.allMarkdownRemark.edges')
+    const formatIndex = index => index / 10 >= 1 ? index : `0${index}`
 
     return (
       <div>
-        {/* <Helmet title={siteTitle} />
-        <Bio />
-        {posts.map(({ node }) => {
+        <section className="episodes">
+        {posts.map(({ node }, index) => {
           const title = get(node, 'frontmatter.title') || node.fields.slug
+          const description = get(node, 'frontmatter.description')
+
           return (
-            <div key={node.fields.slug}>
-              <h3
-              >
-                <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
-                  {title}
-                </Link>
-              </h3>
-              <small>{node.frontmatter.date}</small>
-              <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
-            </div>
+            <article className="episode" key={node.fields.slug}>
+              <h2 className="episode__number">{formatIndex(index + 1)}</h2>
+
+              <div className="episode__media">
+                <Link to={node.fields.slug} className="episode__image"></Link>
+              </div>
+
+              <div className="episode__detail">
+                <Link to={node.fields.slug} className="episode__title"><h4>{title}</h4></Link>
+                <p className="episode__description">{description}</p>
+              </div>
+            </article>
           )
-        })} */}
+        })}
+        </section>
+
         <section className="site">
           <h1 className="site__title site__title--separator">{siteMetadata.title}</h1>
           <p className="site__description">{siteMetadata.description}</p>
@@ -101,6 +107,7 @@ export const pageQuery = graphql`
           frontmatter {
             date(formatString: "DD MMMM, YYYY")
             title
+            description
           }
         }
       }
