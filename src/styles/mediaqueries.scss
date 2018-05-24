@@ -55,7 +55,14 @@
     display: flex;
     padding-left: 60px;
     flex-grow: 1;
+    min-height: 100vh;
   }
+
+  div.row-wrapper {
+    display: flex;
+    width: 100%;
+  }
+
   #site__bg {
     position: absolute;
     top: 0;
@@ -119,6 +126,10 @@
   .episode__description {
     font-size: 1rem;
     font-weight: 300;
+  }
+
+  .page--index {
+    display: flex;
   }
 
   /* page detail */
@@ -238,5 +249,19 @@
     .site__playbar {
       margin: 5rem 10% 0 10%;
     }
+  }
+}
+
+@media only screen and (max-width : 999px) {
+  .page--detail {
+    div.left {
+      margin-top: 45px;
+    }
+  }
+}
+
+.page--detail {
+  h1 {
+    margin: 0;
   }
 }

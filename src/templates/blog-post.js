@@ -12,15 +12,61 @@ class BlogPostTemplate extends React.Component {
     const { previous, next } = this.props.pathContext
 
     return (
-      <div>
+      <div className="site no-padding row-wrapper page--detail">
         <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
-        <h1>{post.frontmatter.title}</h1>
+
+        <div className="left">
+          <label htmlFor="" className="site__label">Episode #1</label>
+          <h1 className="site__title site__title--separator">Linda Watkins</h1>
+        </div>
+
+        <div className="right">
+          <img src="assets/images/photos/original/1.png" alt="" className="episode__image" />
+          <div className="audio-player site__playbar">
+            <div className="loading">
+              <div className="spinner"></div>
+            </div>
+            <button className="play-pause-btn play"></button>
+            <div className="controls">
+              <span className="current-time">0:00</span>
+              <div className="slider" data-direction="horizontal">
+                <div className="progress">
+                  <div className="pin" id="progress-pin" data-method="rewind"></div>
+                </div>
+              </div>
+              <span className="total-time">0:00</span>
+            </div>
+
+            <audio preload="true">
+              <source src="assets/audio/example.ogg" type="audio/ogg" />
+              <source src="assets/audio/example.mp3" type="audio/mpeg" />
+            </audio>
+          </div>
+
+          <h4 className="site__secondary_title">Show Notes</h4>
+          <p className="site__description" dangerouslySetInnerHTML={{ __html: post.html }}></p>
+          <div className="site__navigation">
+            {previous && (
+              <Link to={previous.fields.slug} rel="next" className="site__navigation_items site__navigation_items--left">
+                <label htmlFor="">Previous Episode</label>
+                <h4>{previous.frontmatter.title}</h4>
+              </Link>
+            )}
+
+            {next && (
+              <Link to={next.fields.slug} rel="next" className="site__navigation_items site__navigation_items--right">
+                <label htmlFor="">Next Episode</label>
+                <h4>{next.frontmatter.title}</h4>
+              </Link>
+            )}
+          </div>
+        </div>
+
+        {/* <h1>{post.frontmatter.title}</h1>
         <p>
           {post.frontmatter.date}
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
-        <hr/>
-        <Bio />
 
         <ul
           style={{
@@ -46,7 +92,7 @@ class BlogPostTemplate extends React.Component {
               </Link>
             </li>
           )}
-        </ul>
+        </ul> */}
       </div>
     )
   }

@@ -21,11 +21,6 @@ body {
   color: $gray;
   display: flex;
   flex-direction: column;
-  &.page--detail {
-    .site__title {
-      margin-top: 0;
-    }
-  }
 }
 
 h1,h2,h3,h4,h5,.title {

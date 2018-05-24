@@ -39,11 +39,13 @@ class Template extends React.Component {
         <div className="main">
           <nav>
             <div className="logo nav__logo">
-              <a href="index.html"><img src={LOGO} alt="logo"/></a>
+              <Link to='/'><img src={LOGO} alt="logo"/></Link>
             </div>
+
             <ul className="nav__list">
               <li className="nav__item"><a href="#">Episodes</a></li>
             </ul>
+            
             <ul className="nav__social">
               <li><a href="#" className="nav_social__item"><i className="fab fa-google-play"></i></a></li>
               <li><a href="#" className="nav_social__item"><i className="fab fa-itunes-note"></i></a></li>
