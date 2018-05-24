@@ -11,6 +11,8 @@ class BlogIndex extends React.Component {
     const posts = get(this, 'props.data.allMarkdownRemark.edges')
     const formatIndex = index => index / 10 >= 1 ? index : `0${index}`
 
+    const POST_LIMIT = 4
+
     return (
       <div className="page--index">
         <Helmet title={siteMetadata.title} />
@@ -21,13 +23,13 @@ class BlogIndex extends React.Component {
         </section>
 
         <section className="episodes">
-        {posts.map(({ node }, index) => {
+        {posts.slice(0, POST_LIMIT).map(({ node }, index) => {
           const title = get(node, 'frontmatter.title') || node.fields.slug
           const description = get(node, 'frontmatter.description')
 
           return (
             <article className="episode" key={node.fields.slug}>
-              <h2 className="episode__number">{formatIndex(index + 1)}</h2>
+              <h2 className="episode__number">{formatIndex(POST_LIMIT - index)}</h2>
 
               <div className="episode__media">
                 <Link to={node.fields.slug} className="episode__image"></Link>
@@ -56,7 +58,7 @@ export const pageQuery = graphql`
         description
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: ASC }) {
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
           excerpt

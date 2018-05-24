@@ -68,3 +68,11 @@ exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
     })
   }
 }
+
+// Use file-loader on audio files
+exports.modifyWebpackConfig = ({ config, stage }) => {
+  return config.removeLoader("audio").loader("audio", {
+      test: /\.(ogg|mp3|wav|mpe?g)$/i,
+      loader: "file-loader",
+  });
+};

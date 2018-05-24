@@ -3,9 +3,16 @@ import Helmet from 'react-helmet'
 import Link from 'gatsby-link'
 import get from 'lodash/get'
 
-import Bio from '../components/Bio'
+import EXAMPLE_MP3 from '../audio/example.mp3'
+import EXAMPLE_OGG from '../audio/example.ogg'
 
 class BlogPostTemplate extends React.Component {
+  componentDidMount() {
+    console.log("componentDidMount")
+
+    // const audio = require('../utils/player')
+  }
+
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
@@ -38,8 +45,8 @@ class BlogPostTemplate extends React.Component {
             </div>
 
             <audio preload="true">
-              <source src="assets/audio/example.ogg" type="audio/ogg" />
-              <source src="assets/audio/example.mp3" type="audio/mpeg" />
+              <source src={EXAMPLE_OGG} type="audio/ogg" />
+              <source src={EXAMPLE_MP3} type="audio/mpeg" />
             </audio>
           </div>
 
