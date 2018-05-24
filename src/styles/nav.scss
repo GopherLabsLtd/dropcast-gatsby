@@ -45,6 +45,14 @@ nav {
   padding: 1.5rem;
   font-size: 1rem;
   line-height: .8;
+
+  li {
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
 .nav_social__item {

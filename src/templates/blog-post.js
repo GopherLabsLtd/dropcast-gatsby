@@ -17,7 +17,7 @@ class BlogPostTemplate extends React.Component {
 
         <div className="left">
           <label htmlFor="" className="site__label">Episode #{post.frontmatter.episode}</label>
-          <h1 className="site__title site__title--separator">Linda Watkins</h1>
+          <h1 className="site__title site__title--separator">{post.frontmatter.title}</h1>
         </div>
 
         <div className="right">
@@ -43,7 +43,7 @@ class BlogPostTemplate extends React.Component {
             </audio>
           </div>
 
-          <h4 className="site__secondary_title">Show Notes</h4>
+          <h4 className="site__secondary_title">Notes</h4>
           <p className="site__description" dangerouslySetInnerHTML={{ __html: post.html }}></p>
           <div className="site__navigation">
             {previous && (
