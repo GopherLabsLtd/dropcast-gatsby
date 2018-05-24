@@ -1,6 +1,7 @@
 ---
+episode: 1
 title: Linda Watkins
-date: "2015-05-01T22:12:03.284Z"
+date: "2014-05-01T22:12:03.284Z"
 description: Linda talks about how machine learning models can be used as effective substitutes for classic data structures.
 ---
 

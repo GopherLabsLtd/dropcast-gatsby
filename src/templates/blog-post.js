@@ -16,7 +16,7 @@ class BlogPostTemplate extends React.Component {
         <Helmet title={`${post.frontmatter.title} | ${siteTitle}`} />
 
         <div className="left">
-          <label htmlFor="" className="site__label">Episode #1</label>
+          <label htmlFor="" className="site__label">Episode #{post.frontmatter.episode}</label>
           <h1 className="site__title site__title--separator">Linda Watkins</h1>
         </div>
 
@@ -47,7 +47,7 @@ class BlogPostTemplate extends React.Component {
           <p className="site__description" dangerouslySetInnerHTML={{ __html: post.html }}></p>
           <div className="site__navigation">
             {previous && (
-              <Link to={previous.fields.slug} rel="next" className="site__navigation_items site__navigation_items--left">
+              <Link to={previous.fields.slug} rel="prev" className="site__navigation_items site__navigation_items--left">
                 <label htmlFor="">Previous Episode</label>
                 <h4>{previous.frontmatter.title}</h4>
               </Link>
@@ -114,6 +114,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+        episode
       }
     }
   }

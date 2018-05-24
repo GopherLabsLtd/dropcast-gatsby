@@ -1,6 +1,7 @@
 ---
+episode: 4
 title: Samuel Chavezy
-date: "2015-05-06T23:46:37.121Z"
+date: "2017-07-07T23:46:37.121Z"
 description: Sam talks to us about how he started programming and what keeps him hooked till this day.
 ---
 

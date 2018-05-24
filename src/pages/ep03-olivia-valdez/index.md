@@ -1,6 +1,7 @@
 ---
+episode: 3
 title: Olivia Valdez
-date: "2015-05-06T23:46:37.121Z"
+date: "2016-06-06T23:46:37.121Z"
 description: Olivia talks about how machine learning models can be used as effective substitutes for classic data structures.
 ---
 
