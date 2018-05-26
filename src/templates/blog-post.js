@@ -15,6 +15,7 @@ class BlogPostTemplate extends React.Component {
       duration: "0:00",
       position: "0:00",
       positionPercentage: 0,
+      seek: 0,
       loaded: false,
       playing: true
     }
@@ -28,7 +29,8 @@ class BlogPostTemplate extends React.Component {
         ...this.state,
         duration: this.formatAudioTime(duration),
         position: this.formatAudioTime(position),
-        positionPercentage: position / duration * 100
+        positionPercentage: position / duration * 100,
+        seek: position
       })
     }, 1000)
   }
@@ -57,13 +59,26 @@ class BlogPostTemplate extends React.Component {
     })
   }
 
+  sliderClicked(e) {
+    const sliderElement = e.target
+    const sliderElementRect = sliderElement.getBoundingClientRect();
+    const clickPositionOnSlider = e.pageX - sliderElementRect.left
+    const seekPercentage = clickPositionOnSlider / sliderElement.clientWidth
+
+    const { duration } = this.soundRef.sound
+    this.setState({
+      ...this.state,
+      seek: seekPercentage * duration
+    })
+  }
+
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
     const { previous, next } = this.props.pathContext
     const { image: postImage } = post.frontmatter
 
-    const { duration, position, positionPercentage, loaded, playing } = this.state
+    const { duration, position, positionPercentage, seek, loaded, playing } = this.state
 
     return (
       <div className="site no-padding row-wrapper page--detail">
@@ -84,6 +99,7 @@ class BlogPostTemplate extends React.Component {
             url={EXAMPLE_OGG}
             playStatus={playing ? Sound.status.PLAYING : Sound.status.PAUSED}
             loop={false}
+            position={seek}
             onResume={this.togglePlayingState.bind(this, true)}
             onStop={this.togglePlayingState.bind(this, false)}
             onPause={this.togglePlayingState.bind(this, false)}
@@ -107,7 +123,7 @@ class BlogPostTemplate extends React.Component {
 
             <div className="controls">
               <span className="current-time">{position}</span>
-              <div className="slider" data-direction="horizontal">
+              <div className="slider" data-direction="horizontal" onClick={this.sliderClicked.bind(this)}>
                 <div className="progress" style={{ width: `${positionPercentage}%` }}>
                   <div className="pin" id="progress-pin" data-method="rewind"></div>
                 </div>
