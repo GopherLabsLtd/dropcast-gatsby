@@ -3,20 +3,67 @@ import Helmet from 'react-helmet'
 import Link from 'gatsby-link'
 import get from 'lodash/get'
 
+import Sound from 'react-sound'
 import EXAMPLE_MP3 from '../audio/example.mp3'
 import EXAMPLE_OGG from '../audio/example.ogg'
 
 class BlogPostTemplate extends React.Component {
-  componentDidMount() {
-    console.log("componentDidMount")
+  constructor(props) {
+    super(props)
 
-    // const audio = require('../utils/player')
+    this.state = {
+      duration: "0:00",
+      position: "0:00",
+      positionPercentage: 0,
+      loaded: false,
+      playing: true
+    }
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      // console.log(this.soundRef.sound)
+      const { position, duration } = this.soundRef.sound
+      this.setState({
+        ...this.state,
+        duration: this.formatAudioTime(duration),
+        position: this.formatAudioTime(position),
+        positionPercentage: position / duration * 100
+      })
+    }, 1000)
+  }
+
+  formatAudioTime(time) {
+    let seconds = Math.floor(time / 1000)
+    const minutes = Math.floor(seconds / 60)
+
+    seconds = seconds - (minutes * 60)
+    if (seconds < 10) seconds = `0${seconds}`
+    return `${minutes}:${seconds}`
+  }
+
+  audioLoaded() {
+    this.setState({
+      ...this.state,
+      loaded: true,
+      playing: true
+    })
+  }
+
+  togglePlayingState(playing) {
+    this.setState({
+      ...this.state,
+      playing
+    })
   }
 
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
     const { previous, next } = this.props.pathContext
+    const { image: postImage } = post.frontmatter
+
+    const { duration, position, positionPercentage, loaded, playing } = this.state
 
     return (
       <div className="site no-padding row-wrapper page--detail">
@@ -28,20 +75,44 @@ class BlogPostTemplate extends React.Component {
         </div>
 
         <div className="right">
-          <img src="assets/images/photos/original/1.png" alt="" className="episode__image" />
+          <img
+            src={postImage ? postImage.childImageSharp.resize.src : ""}
+            alt="" className="episode__image"
+          />
+
+          <Sound
+            url={EXAMPLE_OGG}
+            playStatus={playing ? Sound.status.PLAYING : Sound.status.PAUSED}
+            loop={false}
+            onResume={this.togglePlayingState.bind(this, true)}
+            onStop={this.togglePlayingState.bind(this, false)}
+            onPause={this.togglePlayingState.bind(this, false)}
+            onLoad={this.audioLoaded.bind(this)}
+            ref={soundRef => this.soundRef = soundRef}
+          />
+
           <div className="audio-player site__playbar">
-            <div className="loading">
-              <div className="spinner"></div>
-            </div>
-            <button className="play-pause-btn play"></button>
+            {!loaded &&
+              <div className="loading">
+                <div className="spinner"></div>
+              </div>
+            }
+
+            {loaded &&
+              <button
+                className={"play-pause-btn " + (playing ? 'pause' : 'play')}
+                onClick={this.togglePlayingState.bind(this, !playing)}
+              ></button>
+            }
+
             <div className="controls">
-              <span className="current-time">0:00</span>
+              <span className="current-time">{position}</span>
               <div className="slider" data-direction="horizontal">
-                <div className="progress">
+                <div className="progress" style={{ width: `${positionPercentage}%` }}>
                   <div className="pin" id="progress-pin" data-method="rewind"></div>
                 </div>
               </div>
-              <span className="total-time">0:00</span>
+              <span className="total-time">{duration}</span>
             </div>
 
             <audio preload="true">
