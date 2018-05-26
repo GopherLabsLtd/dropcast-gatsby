@@ -22,8 +22,7 @@ class BlogPostTemplate extends React.Component {
   }
 
   componentDidMount() {
-    setInterval(() => {
-      // console.log(this.soundRef.sound)
+    this._interval = setInterval(() => {
       const { position, duration } = this.soundRef.sound
       this.setState({
         ...this.state,
@@ -33,6 +32,10 @@ class BlogPostTemplate extends React.Component {
         seek: position
       })
     }, 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._interval);
   }
 
   formatAudioTime(time) {
