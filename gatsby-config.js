@@ -3,9 +3,9 @@ module.exports = {
     title: 'Dropcast',
     author: 'Gopher Labs',
     description: 'A podcast discussing anything web related with the world’s experts',
-    siteUrl: 'https://gatsbyjs.github.io/gatsby-starter-blog/',
+    siteUrl: 'https://dropcast.gopher.it',
   },
-  pathPrefix: '/gatsby-starter-blog',
+  pathPrefix: '/',
   plugins: [
     `gatsby-plugin-sass`,
     {

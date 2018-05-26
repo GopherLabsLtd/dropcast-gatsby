@@ -2,7 +2,7 @@
 episode: 1
 title: Sarah Paulson
 date: "2014-07-09T23:46:37.121Z"
-description: Sam talks to us about how he started programming and what keeps him hooked till this day.
+description: Sarah talks about how she deployed a social media site onto the Ethereum network.
 image: ./5.jpg
 ---
 
