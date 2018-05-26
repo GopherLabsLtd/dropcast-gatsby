@@ -62,7 +62,7 @@ class Template extends React.Component {
           <p className="footer__content">Made by <a href="https://amie-chen.com" target="_blank">Amie Chen</a> & <a href="https://gopher.it" target="_blank">Gopher Labs</a></p>
           
           <div className="logo footer__logo">
-            <a href="https://tympanus.net/codrops/"><img src={LOGO_WHITE} alt="logo"/></a>
+            <Link to='/'><img src={LOGO_WHITE} alt="logo"/></Link>
           </div>
         </footer>
       </div>

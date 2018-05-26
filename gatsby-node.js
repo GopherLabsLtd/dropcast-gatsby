@@ -22,6 +22,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                     title
                     description
                     episode
+                    audio
                   }
                 }
               }

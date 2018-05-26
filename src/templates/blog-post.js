@@ -4,8 +4,6 @@ import Link from 'gatsby-link'
 import get from 'lodash/get'
 
 import Sound from 'react-sound'
-import EXAMPLE_MP3 from '../audio/example.mp3'
-import EXAMPLE_OGG from '../audio/example.ogg'
 
 class BlogPostTemplate extends React.Component {
   constructor(props) {
@@ -23,19 +21,23 @@ class BlogPostTemplate extends React.Component {
 
   componentDidMount() {
     this._interval = setInterval(() => {
-      const { position, duration } = this.soundRef.sound
-      this.setState({
-        ...this.state,
-        duration: this.formatAudioTime(duration),
-        position: this.formatAudioTime(position),
-        positionPercentage: position / duration * 100,
-        seek: position
-      })
+      if (this.soundRef) {
+        const { position, duration } = this.soundRef.sound
+        this.setState({
+          ...this.state,
+          duration: this.formatAudioTime(duration),
+          position: this.formatAudioTime(position),
+          positionPercentage: position / duration * 100,
+          seek: position
+        })
+      } else {
+        clearInterval(this._interval)
+      }
     }, 1000)
   }
 
   componentWillUnmount() {
-    clearInterval(this._interval);
+    clearInterval(this._interval)
   }
 
   formatAudioTime(time) {
@@ -51,7 +53,7 @@ class BlogPostTemplate extends React.Component {
     this.setState({
       ...this.state,
       loaded: true,
-      playing: true
+      playing: false
     })
   }
 
@@ -98,47 +100,46 @@ class BlogPostTemplate extends React.Component {
             alt="" className="episode__image"
           />
 
-          <Sound
-            url={EXAMPLE_OGG}
-            playStatus={playing ? Sound.status.PLAYING : Sound.status.PAUSED}
-            loop={false}
-            position={seek}
-            onResume={this.togglePlayingState.bind(this, true)}
-            onStop={this.togglePlayingState.bind(this, false)}
-            onPause={this.togglePlayingState.bind(this, false)}
-            onLoad={this.audioLoaded.bind(this)}
-            ref={soundRef => this.soundRef = soundRef}
-          />
+          {post.frontmatter.audio &&
+            <div style={{ position: 'relative' }}>
+              <Sound
+                url={require(`../audio/${post.frontmatter.audio}`)}
+                playStatus={playing ? Sound.status.PLAYING : Sound.status.PAUSED}
+                loop={false}
+                position={seek}
+                onResume={this.togglePlayingState.bind(this, true)}
+                onStop={this.togglePlayingState.bind(this, false)}
+                onPause={this.togglePlayingState.bind(this, false)}
+                onLoad={this.audioLoaded.bind(this)}
+                ref={soundRef => this.soundRef = soundRef}
+              />
 
-          <div className="audio-player site__playbar">
-            {!loaded &&
-              <div className="loading">
-                <div className="spinner"></div>
-              </div>
-            }
+              <div className="audio-player site__playbar">
+                {!loaded &&
+                  <div className="loading">
+                    <div className="spinner"></div>
+                  </div>
+                }
 
-            {loaded &&
-              <button
-                className={"play-pause-btn " + (playing ? 'pause' : 'play')}
-                onClick={this.togglePlayingState.bind(this, !playing)}
-              ></button>
-            }
+                {loaded &&
+                  <button
+                    className={"play-pause-btn " + (playing ? 'pause' : 'play')}
+                    onClick={this.togglePlayingState.bind(this, !playing)}
+                  ></button>
+                }
 
-            <div className="controls">
-              <span className="current-time">{position}</span>
-              <div className="slider" data-direction="horizontal" onClick={this.sliderClicked.bind(this)}>
-                <div className="progress" style={{ width: `${positionPercentage}%` }}>
-                  <div className="pin" id="progress-pin" data-method="rewind"></div>
+                <div className="controls">
+                  <span className="current-time">{position}</span>
+                  <div className="slider" data-direction="horizontal" onClick={this.sliderClicked.bind(this)}>
+                    <div className="progress" style={{ width: `${positionPercentage}%` }}>
+                      <div className="pin" id="progress-pin" data-method="rewind"></div>
+                    </div>
+                  </div>
+                  <span className="total-time">{duration}</span>
                 </div>
               </div>
-              <span className="total-time">{duration}</span>
             </div>
-
-            <audio preload="true">
-              <source src={EXAMPLE_OGG} type="audio/ogg" />
-              <source src={EXAMPLE_MP3} type="audio/mpeg" />
-            </audio>
-          </div>
+          }
 
           <h4 className="site__secondary_title">Notes</h4>
           <p className="site__description" dangerouslySetInnerHTML={{ __html: post.html }}></p>
@@ -158,38 +159,6 @@ class BlogPostTemplate extends React.Component {
             )}
           </div>
         </div>
-
-        {/* <h1>{post.frontmatter.title}</h1>
-        <p>
-          {post.frontmatter.date}
-        </p>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
-
-        <ul
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            listStyle: 'none',
-            padding: 0,
-          }}
-        >
-          {previous && (
-            <li>
-              <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-              </Link>
-            </li>
-          )}
-
-          {next && (
-            <li>
-              <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
-              </Link>
-            </li>
-          )}
-        </ul> */}
       </div>
     )
   }
@@ -219,6 +188,7 @@ export const pageQuery = graphql`
             }
           }
         }
+        audio
       }
     }
   }
