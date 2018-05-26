@@ -11,7 +11,8 @@ class BlogIndex extends React.Component {
     const posts = get(this, 'props.data.allMarkdownRemark.edges')
     const formatIndex = index => index / 10 >= 1 ? index : `0${index}`
 
-    const POST_LIMIT = 4
+    const POST_LIMIT = 6
+    const postsToShow = posts.slice(0, POST_LIMIT)
 
     return (
       <div className="page--index">
@@ -23,15 +24,16 @@ class BlogIndex extends React.Component {
         </section>
 
         <section className="episodes">
-        {posts.slice(0, POST_LIMIT).map(({ node }, index) => {
+        {postsToShow.map(({ node }, index) => {
           const title = get(node, 'frontmatter.title') || node.fields.slug
           const description = get(node, 'frontmatter.description')
+          const { image: postImage } = node.frontmatter
 
           return (
             <article className="episode" key={node.fields.slug}>
-              <h2 className="episode__number">{formatIndex(POST_LIMIT - index)}</h2>
+              <h2 className="episode__number">{formatIndex(postsToShow.length - index)}</h2>
 
-              <div className="episode__media">
+              <div className="episode__media" style={{ backgroundImage: postImage ? `url(${postImage.childImageSharp.resize.src})` : ""}}>
                 <Link to={node.fields.slug} className="episode__image"></Link>
               </div>
 
@@ -69,6 +71,13 @@ export const pageQuery = graphql`
             date(formatString: "DD MMMM, YYYY")
             title
             description
+            image {
+              childImageSharp {
+                resize(width: 200, height: 300, cropFocus: CENTER) {
+                  src
+                }
+              }
+            }
           }
         }
       }

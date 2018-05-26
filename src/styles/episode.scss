@@ -10,8 +10,6 @@
 
   &:nth-child(1) {
     .episode__media {
-      background-image: url(../img/photos/original/1.png);
-
       &:before {
         background: rgba(150, 161, 232, 0.55);
       }
@@ -19,8 +17,6 @@
   }
   &:nth-child(2) {
     .episode__media {
-      background-image: url(../img/photos/original/2.png);
-
       &:before {
         background: rgba(137, 255, 240, 0.45);
       }
@@ -28,8 +24,6 @@
   }
   &:nth-child(3) {
     .episode__media {
-      background-image: url(../img/photos/original/3.png);
-
       &:before {
         background: rgba(193, 134, 121, 0.6);
       }
@@ -37,8 +31,6 @@
   }
   &:nth-child(4) {
     .episode__media {
-      background-image: url(../img/photos/original/4.png);
-
       &:before {
         background: hsla(17, 8%, 51%, 0.6);
       }

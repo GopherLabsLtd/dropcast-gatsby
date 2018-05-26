@@ -122,6 +122,13 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         episode
+        image {
+          childImageSharp {
+            resize(width: 200, height: 300, cropFocus: CENTER) {
+              src
+            }
+          }
+        }
       }
     }
   }
