@@ -9,6 +9,8 @@ import '../styles/main.scss'
 import LOGO from '../img/logo.svg'
 import LOGO_WHITE from '../img/logo-white.svg'
 
+import Particles from 'react-particles-js'
+
 // Google fonts
 const isBrowser = typeof window !== 'undefined'
 class Template extends React.Component {
@@ -20,9 +22,6 @@ class Template extends React.Component {
           families: ['Rufina:400,700', 'Source+Sans+Pro:200,300,400,600,700']
         }
       })
-
-      const particlesJSConfigs = require('../utils/particle').particlesJSConfigs
-      window.particlesJS('site__bg', particlesJSConfigs)
     }
   }
 
@@ -34,7 +33,10 @@ class Template extends React.Component {
           <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet" />
         </Helmet>
 
-        <div id="site__bg"></div>
+        <Particles
+          className="site__bg"
+          params={require('../utils/particle').particlesJSConfigs}
+        />
 
         <div className="main">
           <nav>

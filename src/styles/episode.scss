@@ -1,12 +1,19 @@
 .episode {
   position: relative;
   display: flex;
+  
+  .episode__media {
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(70%);
+  }
+
   &:nth-child(1) {
     .episode__media {
       background-image: url(../img/photos/original/1.png);
 
       &:before {
-        background: rgba(165, 255, 244, 0.35);
+        background: rgba(150, 161, 232, 0.55);
       }
     }
   }
@@ -15,7 +22,7 @@
       background-image: url(../img/photos/original/2.png);
 
       &:before {
-        background: rgba(230, 93, 140, 0.6);
+        background: rgba(137, 255, 240, 0.45);
       }
     }
   }
@@ -24,7 +31,7 @@
       background-image: url(../img/photos/original/3.png);
 
       &:before {
-        background: rgba(202, 145, 212, 0.6);
+        background: rgba(193, 134, 121, 0.6);
       }
     }
   }
@@ -63,12 +70,14 @@
 }
 
 .episode__image {
-  background-size: cover;
-  background-position: center;
+  position: relative;
+  display: block;
   width: 100%;
   height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 3;
   transition: all .1s ease-in-out;
-  display: block;
 }
 
 .episode__media {
@@ -96,7 +105,6 @@
     height: 100%;
     background: rgba(0, 108, 255, 0.3);
     transition: background .2s ease-out;
-    mix-blend-mode: exclusion;
   }
   &:hover {
     transform-origin: 0 50%;

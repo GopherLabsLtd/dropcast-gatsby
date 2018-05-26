@@ -1,13 +1,13 @@
-import * as particlesJS from 'particles.js'
+// import * as particlesJS from 'particles.js'
 
 export const particlesJSConfigs = {
     "particles": {
         "number": {
-        "value": 30,
-        "density": {
-            "enable": true,
-            "value_area": 800
-        }
+            "value": 30,
+            "density": {
+                "enable": true,
+                "value_area": 5000
+            }
         },
         "color": {
         "value": ["#6ECDDD", "#36BB93", "#7D43AE", "#E31565", "#EBA91F"]
